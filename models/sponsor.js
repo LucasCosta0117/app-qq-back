@@ -13,7 +13,7 @@ const sponsorSchema = new Schema(
             required: true
         },
         links: {
-            type: Array,
+            type: [String],
             required: false
         }
     },
