@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { userSchema } = require('./user');
+const { userSchema } = require('./User');
 
 const announcementSchema = new Schema(
     {
