@@ -16,6 +16,7 @@ conn();
 app.use('/api', router);
 
 //Start server
-app.listen(process.env.SERVER_PORT, function() {
+const port = process.env.SERVER_PORT;
+app.listen(port, () => {
     console.log('Servidor online!');
 });
