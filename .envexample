@@ -1,3 +1,6 @@
+# Server port
+SERVER_PORT='3000' #'3000' valor sugerido para uso em desenvolvimento
+
 # MongoDB credentials
 DB_USER=''
 DB_PASS=''
