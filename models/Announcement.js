@@ -57,9 +57,10 @@ const announcementSchema = new Schema(
                 required: true
             }
         }],
-        actived: {
+        active: {
             type: Boolean,
-            required: true
+            required: false,
+            default: true
         }
     },
     {

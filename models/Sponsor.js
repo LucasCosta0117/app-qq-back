@@ -8,7 +8,7 @@ const sponsorSchema = new Schema(
             type: String,
             required: true
         },
-        propagranda: {
+        propaganda: {
             type: String,
             required: true
         },
@@ -26,9 +26,10 @@ const sponsorSchema = new Schema(
                 required: false
             }
         }],
-        actived: {
+        active: {
             type: Boolean,
-            required: true
+            required: false,
+            default: true
         }
     },
     {

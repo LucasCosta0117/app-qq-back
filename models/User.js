@@ -28,9 +28,10 @@ const userSchema = new Schema(
             type: String,
             required: false
         },
-        actived: {
+        active: {
             type: Boolean,
-            required: true
+            required: false,
+            default: true
         }
     },
     {
