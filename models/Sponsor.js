@@ -12,9 +12,23 @@ const sponsorSchema = new Schema(
             type: String,
             required: true
         },
-        links: {
-            type: [String],
-            required: false
+        links: [{
+            instagram: {
+                type: String,
+                required: false
+            },
+            whatsapp: {
+                type: String,
+                required: false
+            },
+            website: {
+                type: String,
+                required: false
+            }
+        }],
+        actived: {
+            type: Boolean,
+            required: true
         }
     },
     {
