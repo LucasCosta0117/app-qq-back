@@ -4,11 +4,11 @@ const { Schema } = mongoose;
 
 const propagandaSchema = new Schema(
     {
-        name: {
+        sponsor: {
             type: String,
             required: true
         },
-        propaganda: {
+        image_url: {
             type: String,
             required: true
         },

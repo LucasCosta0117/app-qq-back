@@ -4,8 +4,8 @@ const propagandaController = {
     create: async (req, res) => {
         try {
             const newPropaganda = {
-                name: req.body.name,
-                propaganda: req.body.propaganda,
+                sponsor: req.body.sponsor,
+                image_url: req.body.image_url,
                 links: req.body.links
             }
 
