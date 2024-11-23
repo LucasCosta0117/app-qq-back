@@ -21,7 +21,7 @@ const announcementSchema = new Schema(
             type: Number,
             required: true
         },
-        images: {
+        images_url: {
             type: [String],
             required: true
         },

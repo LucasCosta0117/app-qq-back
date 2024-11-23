@@ -6,7 +6,7 @@ const userController = {
             const newUser = {
                 first_name: req.body.first_name,
                 second_name: req.body.second_name,
-                photo: req.body.photo,
+                photo_url: req.body.photo_url,
                 contact: req.body.contact,
                 email: req.body.email,
                 password: req.body.password
