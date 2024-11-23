@@ -1,15 +1,15 @@
-const { Sponsor } = require('../models/Sponsor');
+const { Propaganda } = require('../models/Propaganda');
 
-const sponsorController = {
+const propagandaController = {
     create: async (req, res) => {
         try {
-            const newSponser = {
+            const newPropaganda = {
                 name: req.body.name,
                 propaganda: req.body.propaganda,
                 links: req.body.links
             }
 
-            const response = await Sponsor.create(newSponser);
+            const response = await Propaganda.create(newPropaganda);
 
             res
             .status(201)
@@ -31,4 +31,4 @@ const sponsorController = {
 
 }
 
-module.exports = sponsorController;
+module.exports = propagandaController;

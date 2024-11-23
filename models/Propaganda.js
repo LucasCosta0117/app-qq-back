@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const sponsorSchema = new Schema(
+const propagandaSchema = new Schema(
     {
         name: {
             type: String,
@@ -37,8 +37,8 @@ const sponsorSchema = new Schema(
     }
 );
 
-const Sponsor = mongoose.model('Sponsor', sponsorSchema);
+const Propaganda = mongoose.model('Propaganda', propagandaSchema);
 
 module.exports = {
-    Sponsor
+    Propaganda
 };
