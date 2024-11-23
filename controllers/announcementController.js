@@ -8,7 +8,9 @@ const announcementController = {
                 title: req.body.title,
                 description: req.body.description,
                 price: req.body.price,
+                images_url: req.body.images_url,
                 address: req.body.address,
+                tags: req.body.adress,
                 ratting: req.body.ratting,
                 comments: req.body.comments
             }
