@@ -18,4 +18,12 @@ router
     .route('/user/get/:email') //Buscar um usuário por email
     .get((req, res) => userController.getByEmail(req, res))
 
+router
+    .route('/user/delete/:email') //Excluir um usuário por email
+    .delete((req, res) => userController.delete(req, res))
+
+router
+    .route('/user/disable/:email') //Desativar um usuário ativo por email
+    .patch((req, res) => userController.disable(req, res))
+
 module.exports = router;

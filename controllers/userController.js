@@ -12,24 +12,27 @@ const userController = {
                 password: req.body.password
             }
             
+            const existingUser = await User.findOne({ email: req.body.email, active: true });
+            
+            if (existingUser) {
+                return res.status(409).json({ 
+                    msg: 'Email de Usuário já cadastrado.' 
+                });
+            }
+            
             /**
-             * @todo validar se o e-mail já existe no banco e está ativo
              * @todo criptografar a senha do usuário antes de mandar para o db
              */
             const response = await User.create(newUser);
 
-            res
-            .status(201)
-            .json({
+            res.status(201).json({
                 response: response,
                 msg: "Usuário criado com sucesso!"
             });
         } catch (error) {
             console.log(`Error: ${error}`);
 
-            res
-            .status(400)
-            .json({
+            res.status(400).json({
                 response: error,
                 msg: "Falha ao criar o Usuário"
             });
@@ -40,24 +43,16 @@ const userController = {
             const users = await User.find();
 
             if (!users) {
-                res
-                .status(404)
-                .json({ 
+                return res.status(404).json({ 
                     msg: 'Não existem usuários ativos no momento' 
                 });
-
-                return;
             }
             
-            res
-            .status(200)
-            .json(users);
+            res.status(200).json(users);
         } catch (error) {
             console.log(`Error: ${error}`);
 
-            res
-            .status(400)
-            .json({
+            res.status(400).json({
                 response: error,
                 msg: "Falha ao obter a lista de Usuários"
             });
@@ -68,24 +63,16 @@ const userController = {
             const users = await User.find({ active: true });
 
             if (!users) {
-                res
-                .status(404)
-                .json({
+                return res.status(404).json({
                     msg: 'Não existem usuários ativos no momento'
                 });
-                
-                return;
             }
 
-            res
-            .status(200)
-            .json(users);
+            res.status(200).json(users);
         } catch (error) {
             console.log(`Error: ${error}`);
 
-            res
-            .status(400)
-            .json({
+            res.status(400).json({
                 response: error,
                 msg: "Falha ao obter a lista de Usuários"
             });
@@ -97,26 +84,70 @@ const userController = {
             const user = await User.findOne({ email: email });
 
             if (!user) {
-                res
-                .status(404)
-                .json({
+                return res.status(404).json({
                     msg: 'Usuário não encontrado!'
                 });
-                
-                return;
             }
             
-            res
-            .status(200)
-            .json(user);
+            res.status(200).json(user);
         } catch (error) {
             console.log(`Error: ${error}`);
 
-            res
-            .status(400)
-            .json({
+            res.status(400).json({
                 response: error,
                 msg: "Falha ao obter o Usuário com o e-mail fornecido!"
+            });
+        }
+    },
+    delete: async (req, res) => {
+        try {
+            const email = req.params.email;
+            const user = await User.findOne({ email: email });
+            
+            if (!user) {
+                return res.status(404).json({
+                    msg: 'Usuário não encontrado'
+                });
+            }
+
+            await User.deleteOne({ email: email });
+            
+            res.status(200).json({
+                response: user,
+                msg: "Usuário deletado com sucesso!"
+            });
+        } catch (error) {
+            console.log(`Error: ${error}`);
+
+            res.status(400).json({
+                response: error,
+                msg: "Falha ao deletar o Usuário com o e-mail fornecido!"
+            });
+        }
+    },
+    disable: async (req, res) => {
+        try {
+            const email = req.params.email;
+            const existingUser = await User.findOne({ email: email, active: true });
+            
+            if (!existingUser) {
+                return res.status(404).json({
+                    msg: 'Usuário não encontrado'
+                });
+            }
+
+            const response = await User.updateOne({ email: email }, { $set: {active: false}});
+            
+            res.status(200).json({
+                response: response,
+                msg: "Usuário desativado com sucesso!"
+            });
+        } catch (error) {
+            console.log(`Error: ${error}`);
+
+            res.status(400).json({
+                response: error,
+                msg: "Falha ao desativar o Usuário!"
             });
         }
     }
