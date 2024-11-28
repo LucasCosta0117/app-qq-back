@@ -1,17 +1,11 @@
+const { hash } = require('bcrypt');
+const { randomInt } = require('crypto');
+
 const { User } = require('../models/User');
 
 const userController = {
     create: async (req, res) => {
-        try {
-            const newUser = {
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                photo_url: req.body.photo_url,
-                contact: req.body.contact,
-                email: req.body.email,
-                password: req.body.password
-            }
-            
+        try {           
             const existingUser = await User.findOne({ email: req.body.email, active: true });
             
             if (existingUser) {
@@ -19,10 +13,19 @@ const userController = {
                     msg: 'Email de Usuário já cadastrado.' 
                 });
             }
-            
-            /**
-             * @todo criptografar a senha do usuário antes de mandar para o db
-             */
+
+            const randomSalt = randomInt(10, 16);
+            const passwordHash = await hash(req.body.password, randomSalt);
+
+            const newUser = {
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                photo_url: req.body.photo_url,
+                contact: req.body.contact,
+                email: req.body.email,
+                password: passwordHash
+            }
+
             const response = await User.create(newUser);
 
             res.status(201).json({
