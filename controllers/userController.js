@@ -5,7 +5,7 @@ const userController = {
         try {
             const newUser = {
                 first_name: req.body.first_name,
-                second_name: req.body.second_name,
+                last_name: req.body.last_name,
                 photo_url: req.body.photo_url,
                 contact: req.body.contact,
                 email: req.body.email,
@@ -150,7 +150,39 @@ const userController = {
                 msg: "Falha ao desativar o Usuário!"
             });
         }
+    },
+    update: async (req, res) => {
+        try {
+            const updateUser = {
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                photo_url: req.body.photo_url,
+                contact: req.body.contact,
+            }
+
+            const email = req.body.email;
+            const response = await User.findOneAndUpdate({email: email}, {$set: updateUser});
+
+            if (!response) {
+                return res.status(404).json({ msg: 'Usuário não encontrado' });
+            }
+    
+            res.status(200).json({
+                response: updateUser,
+                msg: 'Informações atualizadas com sucesso!'
+            });
+        } catch (error) {
+            console.log(`Error: ${error}`);
+
+            res.status(400).json({
+                response: error,
+                msg: "Falha ao atualizar os dados do Usuário!"
+            });
+        }
     }
+    /**
+     * @todo Método para atualizar a senha do usuário.
+     */
 }
 
 module.exports = userController;

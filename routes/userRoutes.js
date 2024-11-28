@@ -25,5 +25,9 @@ router
 router
     .route('/user/disable/:email') //Desativar um usuário ativo por email
     .patch((req, res) => userController.disable(req, res))
+    
+router
+    .route('/user/update') //Atualizar dados do usuário (Exceto 'email' e 'password')
+    .put((req, res) => userController.update(req, res))
 
 module.exports = router;
