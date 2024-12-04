@@ -44,13 +44,7 @@ const userController = {
     getAll: async (req, res) => {
         try {
             const users = await User.find();
-
-            if (!users) {
-                return res.status(404).json({ 
-                    msg: 'Não existem usuários ativos no momento' 
-                });
-            }
-            
+  
             res.status(200).json(users);
         } catch (error) {
             console.log(`Error: ${error}`);
