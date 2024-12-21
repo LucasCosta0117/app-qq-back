@@ -33,30 +33,36 @@ const announcementSchema = new Schema(
             type: [String],
             required: true
         },
-        ratting: [{
-            value: {
-                type: Array,
-                required: true
-            },
-            count: {
-                type: Array,
-                required: true
-            },
-            userId: {
-                type: Number,
-                required: true
-            }
-        }],
-        comments: [{
-            user: {
-                type: userSchema,
-                required: true
-            },
-            text: {
-                type: String,
-                required: true
-            }
-        }],
+        ratting: {
+            type: [{
+                value: {
+                    type: Number,
+                    required: true
+                },
+                userList: {
+                    type: [String],
+                    required: true
+                }
+            }],
+            default: []
+        },
+        comments: {
+            type: [{
+                userName: {
+                    type: String,
+                    required: true
+                },
+                userPhoto: {
+                    type: String,
+                    required: true
+                },
+                text: {
+                    type: String,
+                    required: true
+                }
+            }],
+            default: []
+        },
         active: {
             type: Boolean,
             required: false,

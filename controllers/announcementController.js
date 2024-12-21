@@ -4,13 +4,13 @@ const announcementController = {
     create: async (req, res) => {
         try {
             const newAnnouncement = {
-                owner:req.body.owner,
+                owner: req.body.owner,
                 title: req.body.title,
                 description: req.body.description,
                 price: req.body.price,
                 images_url: req.body.images_url,
                 address: req.body.address,
-                tags: req.body.adress,
+                tags: req.body.tags,
                 ratting: req.body.ratting,
                 comments: req.body.comments
             }
@@ -24,7 +24,7 @@ const announcementController = {
                 msg: "Anúncio criado com sucesso!"
             });
         } catch (error) {
-            console,log(`Error: ${error}`);
+            console.log(`Error: ${error}`);
 
             res
             .status(400)
@@ -45,6 +45,27 @@ const announcementController = {
             res.status(400).json({
                 response: error,
                 msg: "Falha ao obter a lista de Anúncios"
+            });
+        }
+    },
+    getById: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const announcement = await Announcement.findById(id);
+
+            if (!announcement) {
+                return res.status(404).json({
+                    msg: 'Anúncio não encontrado!'
+                });
+            }
+
+            res.status(200).json(announcement);
+        } catch (error) {
+            console.log(`Error: ${error}`);
+
+            res.status(400).json({
+                response: error,
+                msg: "Falha ao obter o Anúncio com _id fornecido!"
             });
         }
     },
@@ -85,7 +106,7 @@ const announcementController = {
                 price: req.body.price,
                 images_url: req.body.images_url,
                 address: req.body.address,
-                tags: req.body.adress,
+                tags: req.body.tags,
                 ratting: req.body.ratting,
                 comments: req.body.comments
             }
@@ -109,6 +130,12 @@ const announcementController = {
             });
         }
     }
+    /**
+     * @todo Criar dois novos métodos para realizar a Avaliação de um anúncio, e um Comentário em um anúncio
+     * Para a avaliação, receber do front o ID do user logado e a nota. Na regra de negócio fazemos o cálculo 
+     * da nova média e adicionamos o EMAIL a lista de userList da prop ratting. PS: a validação se o user pode avaliar novamente
+     * pode ser feita no front, enviando a lista de user para verificar se o user que está avaliando já o fez.
+     */
 }
 
 module.exports = announcementController;
