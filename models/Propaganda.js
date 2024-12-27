@@ -12,20 +12,23 @@ const propagandaSchema = new Schema(
             type: String,
             required: true
         },
-        links: [{
-            instagram: {
-                type: String,
-                required: false
-            },
-            whatsapp: {
-                type: String,
-                required: false
-            },
-            website: {
-                type: String,
-                required: false
-            }
-        }],
+        links: {
+            type: [{
+                instagram: {
+                    type: String,
+                    required: false
+                },
+                whatsapp: {
+                    type: String,
+                    required: false
+                },
+                website: {
+                    type: String,
+                    required: false
+                }
+            }],
+            default: []
+        },
         active: {
             type: Boolean,
             required: false,
